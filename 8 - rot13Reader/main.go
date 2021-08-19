@@ -12,7 +12,7 @@ type rot13Reader struct {
 
 func (rr *rot13Reader) Read(b []byte) (int, error) {
 	n, err := rr.r.Read(b)
-	for i := 0; i < len(b); i++ {
+	for i := 0; i < n; i++ {
 		l := strings.ToLower(string(b[i]))
 		if l >= "a" && l <= "m" {
 			b[i] += 13
