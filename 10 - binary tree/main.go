@@ -17,14 +17,20 @@ import (
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
 func Walk(t *tree.Tree, ch chan int) {
+	if t == nil {
+		return
+	}
+
 	// close channel when function ends
 	defer close(ch)
 
 	var walk func(t *tree.Tree)
 	walk = func(t *tree.Tree) {
-		if t != nil {
+		if t.Left != nil {
 			walk(t.Left)
-			ch <- t.Value
+		}
+		ch <- t.Value
+		if t.Right != nil {
 			walk(t.Right)
 		}
 		return
